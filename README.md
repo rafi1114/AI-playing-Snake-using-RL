@@ -1,6 +1,6 @@
 # AI Playing Snake using Reinforcement Learning
 
-[![AI plays Snake!](https://img.youtube.com/vi/HTxfdf0rBZs&t=13s/0.jpg)](https://www.youtube.com/watch?v=HTxfdf0rBZs&t=13s)
+[![AI plays Snake!](https://img.youtube.com/vi/HTxfdf0rBZs/0.jpg)](https://www.youtube.com/watch?v=HTxfdf0rBZs&t=13s)
 
 
 This project demonstrates a reinforcement learning agent that plays the classic Snake game. The agent is trained using Q-learning to optimize its performance in the game.
