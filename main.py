@@ -6,8 +6,7 @@ from plotter import plot
 from qmodel import qsimple
 
 LR = 0.01
-MODE = 1 #0 for Training, 1 for Testing
-
+MODE = 0 #0 for Training, 1 for Testing
 class Agent:
 
     def __init__(self):
@@ -19,7 +18,7 @@ class Agent:
 ## Updated for my snake
     def get_state(self, gm, dir, snkx, snky, apx, apy):
         point_l = [snkx-40, snky] 
-        point_r = [snkx+40, snky] 
+        point_r = [snkx+40, snky]
         point_u = [snkx, snky-40] 
         point_d = [snkx, snky+40] 
         

@@ -81,6 +81,10 @@ class snake:
         self.direction = 'down'
         self.head = pygame.image.load("../resources/head.png").convert_alpha() #imports own image here
         self.head = pygame.transform.scale(self.head, (SIZE, SIZE)) #reshapes the image
+        self.dead_head = pygame.image.load("../resources/head.png").convert_alpha() #imports own image here
+        self.dead_head = pygame.transform.scale(self.dead_head, (SIZE, SIZE))
+        self.dead_body = pygame.image.load("../resources/head.png").convert_alpha() #imports own image here
+        self.dead_body = pygame.transform.scale(self.dead_body, (SIZE, SIZE))
         self.length = length
         self.x = [200]*length
         self.y = [200]*length
@@ -121,6 +125,15 @@ class snake:
         for i in range(1, self.length):
             self.surface.blit(self.block, (self.x[i],self.y[i])) #show all the blocks via loop
         pygame.display.flip()
+    
+    def draw_dead(self):    #to display the snake on the screen
+        # Load the background image
+        self.surface.blit(self.background, (0,0))
+        self.surface.blit(self.dead_head, (self.x[0],self.y[0]))
+        for i in range(1, self.length):
+            self.surface.blit(self.dead_body, (self.x[i],self.y[i])) #show all the blocks via loop
+        pygame.display.flip()
+
 
     def increase_length(self):  #increase the length and this length is used in the walk function
         self.length += 1
@@ -144,7 +157,7 @@ class Game: #most important
         pygame.mixer.init()
         pygame.display.set_caption("Snake Game by Rafi Bin Dastagir")
 
-        self.play_bg_music()
+        #self.play_bg_music()
 
         self.surface = pygame.display.set_mode((GRID_X, GRID_Y)) #this surface is used by snake and apple too
 
@@ -153,6 +166,10 @@ class Game: #most important
 
         self.background = pygame.image.load("../resources/bg2.jpg").convert() #imports background, used by snake too
         self.background = pygame.transform.scale(self.background, (GRID_X, GRID_Y))
+
+        self.border = pygame.image.load("../resources/border.png").convert_alpha() #imports background, used by snake too
+        self.border = pygame.transform.scale(self.border, (GRID_X+100, GRID_Y+100))
+
 
         self.length = 1
         self.block = block
@@ -201,9 +218,14 @@ class Game: #most important
         #         return True
             
         if headx + SIZE > GRID_X or headx < 0 or heady + SIZE > GRID_Y or heady < 0:
+            self.show_border()
             return True
         else:
             return False
+        
+    def show_border(self):
+        self.surface.blit(self.border, (-50,-50))
+        pygame.display.flip()
         
 # Snake colliding with Apple    
     def eat_apple(self):
@@ -301,7 +323,7 @@ class Game: #most important
             self.score = self.count_score()
             self.reward = -100
 
-        time.sleep(0.05)
+        time.sleep(0.1)
     
         return self.reward, done, self.score
 
