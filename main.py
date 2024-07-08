@@ -6,7 +6,7 @@ from plotter import plot
 from qmodel import qsimple
 
 LR = 0.01
-MODE = 0 #0 for Training, 1 for Testing
+MODE = 1 #0 for Training, 1 for Testing
 class Agent:
 
     def __init__(self):

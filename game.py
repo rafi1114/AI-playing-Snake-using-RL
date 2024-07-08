@@ -9,7 +9,7 @@ SIZE = 40
 class blockade:
     def __init__(self, surface):
         self.surface = surface
-        self.image = pygame.image.load("../resources/blockade.png").convert_alpha()
+        self.image = pygame.image.load("resources/blockade.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (SIZE, SIZE))
         self.n = random.randint(1,2) #Number of blockades
         # print("Number of blockades: ", self.n)
@@ -56,7 +56,7 @@ class blockade:
 class apple:
     def __init__(self, surface): #initiates the apple
         self.surface = surface #gets surface from the Game Class as input
-        self.image = pygame.image.load("../resources/apple.png").convert_alpha() #imports own image here
+        self.image = pygame.image.load("resources/apple.png").convert_alpha() #imports own image here
         self.image = pygame.transform.scale(self.image, (SIZE, 35)) #reshapes the image
         self.x = random.randint(1,9)*SIZE #the x position of the first apple
         self.y = random.randint(1,6)*SIZE #the y position of the first apple
@@ -79,11 +79,11 @@ class snake:
         self.block = block
         self.background = background
         self.direction = 'down'
-        self.head = pygame.image.load("../resources/head.png").convert_alpha() #imports own image here
+        self.head = pygame.image.load("resources/head.png").convert_alpha() #imports own image here
         self.head = pygame.transform.scale(self.head, (SIZE, SIZE)) #reshapes the image
-        self.dead_head = pygame.image.load("../resources/head.png").convert_alpha() #imports own image here
+        self.dead_head = pygame.image.load("resources/head.png").convert_alpha() #imports own image here
         self.dead_head = pygame.transform.scale(self.dead_head, (SIZE, SIZE))
-        self.dead_body = pygame.image.load("../resources/head.png").convert_alpha() #imports own image here
+        self.dead_body = pygame.image.load("resources/head.png").convert_alpha() #imports own image here
         self.dead_body = pygame.transform.scale(self.dead_body, (SIZE, SIZE))
         self.length = length
         self.x = [200]*length
@@ -161,13 +161,13 @@ class Game: #most important
 
         self.surface = pygame.display.set_mode((GRID_X, GRID_Y)) #this surface is used by snake and apple too
 
-        block = pygame.image.load("../resources/body.png").convert_alpha() #imports block for snake, apple
+        block = pygame.image.load("resources/body.png").convert_alpha() #imports block for snake, apple
         block = pygame.transform.scale(block, (SIZE,SIZE))
 
-        self.background = pygame.image.load("../resources/bg2.jpg").convert() #imports background, used by snake too
+        self.background = pygame.image.load("resources/bg2.jpg").convert() #imports background, used by snake too
         self.background = pygame.transform.scale(self.background, (GRID_X, GRID_Y))
 
-        self.border = pygame.image.load("../resources/border.png").convert_alpha() #imports background, used by snake too
+        self.border = pygame.image.load("resources/border.png").convert_alpha() #imports background, used by snake too
         self.border = pygame.transform.scale(self.border, (GRID_X+100, GRID_Y+100))
 
 
@@ -204,13 +204,14 @@ class Game: #most important
         self.surface.blit(episode, (20,20))
     
     def play_bg_music(self):  #play bg music continuously
-        pygame.mixer.music.load("../resources/music.mp3")
+        pygame.mixer.music.load("resources/music.mp3")
         pygame.mixer.music.play()
 
     def bad_collision(self, headx, heady):
         #Snake colliding with Itself
         for i in range(2, self.snake.length):
             if self.is_collision(headx, heady, self.snake.x[i], self.snake.y[i]):
+                self.show_border()
                 return True
         # # Snake colliding with Blockade
         # for i in range(len(self.blockade.x)):    
@@ -230,7 +231,7 @@ class Game: #most important
 # Snake colliding with Apple    
     def eat_apple(self):
         if self.is_collision(self.snake.x[0], self.snake.y[0], self.apple.x, self.apple.y):
-            sound1 = pygame.mixer.Sound("../resources/yay.wav")
+            sound1 = pygame.mixer.Sound("resources/yay.wav")
             pygame.mixer.Sound.play(sound1)
             self.reward = 100
             self.snake.increase_length()
@@ -265,12 +266,12 @@ class Game: #most important
                 self.apple.move() 
 
         if self.bad_collision(self.snake.x[0], self.snake.y[0]) or self.frame_iteration > 500*self.snake.length:
-            sound2 = pygame.mixer.Sound("../resources/noo.mp3")
+            sound2 = pygame.mixer.Sound("resources/noo.mp3")
             pygame.mixer.Sound.play(sound2)
             raise "Colision detected"
                             
     def show_game_over(self):
-        self.background = pygame.image.load("../resources/bg2.jpg").convert()
+        self.background = pygame.image.load("resources/bg2.jpg").convert()
         self.background = pygame.transform.scale(self.background, (800, 600))
         self.surface.blit(self.background, (0,0)) 
         font = pygame.font.SysFont('impact', 40)
