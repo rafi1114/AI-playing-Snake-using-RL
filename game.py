@@ -211,7 +211,6 @@ class Game: #most important
         #Snake colliding with Itself
         for i in range(2, self.snake.length):
             if self.is_collision(headx, heady, self.snake.x[i], self.snake.y[i]):
-                self.show_border()
                 return True
         # # Snake colliding with Blockade
         # for i in range(len(self.blockade.x)):    
@@ -219,7 +218,6 @@ class Game: #most important
         #         return True
             
         if headx + SIZE > GRID_X or headx < 0 or heady + SIZE > GRID_Y or heady < 0:
-            self.show_border()
             return True
         else:
             return False
@@ -267,6 +265,7 @@ class Game: #most important
 
         if self.bad_collision(self.snake.x[0], self.snake.y[0]) or self.frame_iteration > 500*self.snake.length:
             sound2 = pygame.mixer.Sound("resources/noo.mp3")
+            self.show_border()
             pygame.mixer.Sound.play(sound2)
             raise "Colision detected"
                             
